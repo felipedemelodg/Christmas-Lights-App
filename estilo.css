@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    background-color: rgb(102, 102, 102);
+}
+
+@keyframes amarelo {
+    0% {
+        box-shadow: 1px 1px 5px yellow
+    }
+
+    25% {
+        box-shadow: 1px 1px 15px yellow
+    }
+
+    50% {
+        box-shadow: 1px 1px 15px yellow
+    }
+
+    100% {
+        box-shadow: 1px 1px 5px yellow
+    }
+
+}
+
+@keyframes vermelho {
+    0% {
+        box-shadow: 1px 1px 5px red
+    }
+
+    25% {
+        box-shadow: 1px 1px 15px red
+    }
+
+    50% {
+        box-shadow: 1px 1px 15px red
+    }
+
+    100% {
+        box-shadow: 1px 1px 5px red
+    }
+
+}
+
+@keyframes azul {
+    0% {
+        box-shadow: 1px 1px 5px blue
+    }
+
+    25% {
+        box-shadow: 1px 1px 15px blue
+    }
+
+    50% {
+        box-shadow: 1px 1px 15px blue
+    }
+
+    100% {
+        box-shadow: 1px 1px 5px blue
+    }
+
+}
+#on,#off,#tamanho,#tempo
+{display:none}
+.marcado{
+    border: 3px solid black;
+}
+.padrao {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 0.5em;
+}
+
+.amarelo {
+    background-color: yellow;
+    animation-name: amarelo;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+.vermelho {
+    background-color: red;
+    animation-name: vermelho;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+.azul {
+    background-color: blue;
+    animation-name: azul;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+#controle {
+    border: 1px solid red;
+    margin-top: 50px;
+}
+
+#tempo {
+    width: 50px;
+}
+
+#area {
+    display: flex;
+}
