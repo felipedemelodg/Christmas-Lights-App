@@ -1,88 +1,110 @@
 let on_button = document.getElementById('on')
-let velocidade = document.getElementById('tempo')
+let tempo = document.getElementById('tempo')
 let off_button = document.getElementById('off')
 let circulos = document.getElementsByClassName('padrao')
+let len = circulos.length
 let tamanho = document.getElementById('tamanho')
 let cores = document.getElementById('cores')
 let cont = 0;
-
-function CriarLuzes() {
-
+let area = document.getElementById('area')
 
 
 
+function mostrarControles() {
+    on_button.style.display = "block"
+    off_button.style.display = "block"
+    tamanho.style.display = "block"
+    tempo.style.display = "block"
+}
 
-    this.luz = document.createElement('div')
-    this.luz.classList.add('padrao', cores.value, '_' + cont)
+function Lampada() {
+    this.lampada = document.createElement('div')
+    this.lampada.classList.add('padrao', "_" + cont)
     cont++
-    cores.value == 'vermelho' ?
-        this.luz.style.backgroundColor = 'red' :
-        cores.value == 'amarelo' ?
-        this.luz.style.backgroundColor = 'yellow' :
-        this.luz.style.backgroundColor = 'blue'
+    area.appendChild(this.lampada)
+}
 
-    document.getElementById('area').appendChild(
-        this.luz
-    )
-    let marcado = document.getElementsByClassName('marcado')
-    if (marcado.length > 1) {
-        marcado[marcado.length - 2].classList.remove('marcado')
+function Animacao() {
+    this.animacao = new Lampada()
+    cores.value == 'amarelo' ?
+        this.animacao.lampada.classList.add('amarelo') :
+        cores.value == 'vermelho' ?
+        this.animacao.lampada.classList.add('vermelho') :
+        this.animacao.lampada.classList.add('azul')
+}
 
-    }
-    for (let i = 0; i < circulos.length; i++) {
-        circulos[i].addEventListener('click', () => {
-            let indice = Object.values(circulos).indexOf(circulos[i])
-            circulos[indice].classList.add('marcado')
-            tamanho.value = circulos[indice].style.width 
-            if (marcado.length > 0) {
-                velocidade.style.display = 'flex'
-                on_button.style.display = 'flex'
-                off_button.style.display = 'flex'
-                tamanho.style.display = 'flex'
-                let marcados = Object.values(circulos).filter(el =>
-                    el.classList.contains('marcado')
-                )
-                marcados.forEach(el =>
-                    el.classList.remove('marcado')
-                )
-                document.querySelector('._' + indice)
-                    .classList.add('marcado')
+function Controle() {
+    this.controle = new Animacao
+    this.controle
+        .animacao
+        .lampada
+        .addEventListener(
+            'click', mostrarControles
+        )
 
-                tamanho.addEventListener('input', () => {
-                    let element = Object.values(circulos).filter(el =>
-                        el.classList.contains('marcado'))
-                       
-                        element[0].style.width = tamanho.value+'px'
-                        element[0].style.height = tamanho.value+'px'
-                })
-            }
+    this.controle
+        .animacao
+        .lampada
+        .addEventListener(
+            'click', controleDeTamamanho
+        )
+    this.controle
+        .animacao
+        .lampada
+        .addEventListener(
+            'click', selecao
+        )
+
+    on_button.addEventListener('click', on)
+    off_button.addEventListener('click', off)
+    tempo.addEventListener('input',velocidade)
+
+}
+
+function velocidade() {
+    Object
+        .values(
+            document
+            .getElementsByClassName('marcado')).forEach(el => {
+            el.style.animationDuration = tempo.value+"s"
         })
-    }
-
 }
-
-
-function tempo() {
-    for (let i = 0; i < circulos.length; i++) {
-        circulos[i].style.animationDuration = velocidade.value + "s"
-    }
-}
-
 function on() {
-    for (let i = 0; i < circulos.length; i++) {
-        circulos[i].removeAttribute('style')
-        circulos[i].style.animationPlayState = 'running'
-    }
+    Object
+        .values(
+            document
+            .getElementsByClassName('marcado')).forEach(el => {
+            el.style.animationDuration = '1s'
+        })
 }
-
 function off() {
-    for (let i = 0; i < circulos.length; i++) {
-        circulos[i].style.animation = 'none'
-    }
-
+    Object
+        .values(
+            document
+            .getElementsByClassName('marcado')).forEach(el => {
+            el.style.animationDuration = '0s'
+        })
 }
 
-on_button.addEventListener('click', on, false)
-off_button.addEventListener('click', off, false)
-velocidade.addEventListener('click', tempo, false)
-cores.addEventListener('click', CriarLuzes, false)
+function selecao(e) {
+    if (e.target.classList.contains('marcado')) {
+        e.target.classList.remove('marcado')
+    } else {
+        e.target.classList.add('marcado')
+    }
+}
+
+function controleDeTamamanho() {
+    let selecao = document.getElementsByClassName('marcado')
+    tamanho.addEventListener('input', () => {
+        Object.values(selecao).forEach(mudaTamanho)
+    })
+}
+
+function mudaTamanho(el) {
+    el.style.width = tamanho.value + "px"
+    el.style.height = tamanho.value + "px"
+}
+
+
+cores.addEventListener('input', Controle, false)
