@@ -22,53 +22,44 @@ function Lampada() {
     this.lampada.classList.add('padrao', "_" + cont)
     cont++
     area.appendChild(this.lampada)
-}
 
-function Animacao() {
-    this.animacao = new Lampada()
     cores.value == 'amarelo' ?
-        this.animacao.lampada.classList.add('amarelo') :
+        this.lampada.classList.add('amarelo') :
         cores.value == 'vermelho' ?
-        this.animacao.lampada.classList.add('vermelho') :
-        this.animacao.lampada.classList.add('azul')
-}
+        this.lampada.classList.add('vermelho') :
+        this.lampada.classList.add('azul')
 
-function Controle() {
-    this.controle = new Animacao
-    this.controle
-        .animacao
-        .lampada
+    this.lampada
         .addEventListener(
             'click', mostrarControles
         )
 
-    this.controle
-        .animacao
-        .lampada
+    this.lampada
         .addEventListener(
             'click', controleDeTamamanho
         )
-    this.controle
-        .animacao
-        .lampada
+    this.lampada
         .addEventListener(
             'click', selecao
         )
 
     on_button.addEventListener('click', on)
     off_button.addEventListener('click', off)
-    tempo.addEventListener('input',velocidade)
+    tempo.addEventListener('input', velocidade)
+
 
 }
+
 
 function velocidade() {
     Object
         .values(
             document
             .getElementsByClassName('marcado')).forEach(el => {
-            el.style.animationDuration = tempo.value+"s"
+            el.style.animationDuration = tempo.value + "s"
         })
 }
+
 function on() {
     Object
         .values(
@@ -77,6 +68,7 @@ function on() {
             el.style.animationDuration = '1s'
         })
 }
+
 function off() {
     Object
         .values(
@@ -107,4 +99,4 @@ function mudaTamanho(el) {
 }
 
 
-cores.addEventListener('input', Controle, false)
+cores.addEventListener('input', Lampada, false)
